@@ -1,0 +1,14 @@
+# 运行产物 / 本地环境（不提交仓库）
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+/app/
+/artifacts/
+/logs/
+*.log
+settings.json
+
+# 本地测试用样本（版权/环境相关，不提交）
+/tests/wps-print-template.pdf
+/tests/wps-newfile.pdf
