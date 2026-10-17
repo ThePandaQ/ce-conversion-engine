@@ -23,7 +23,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 
 ## 离线分发包（给客户，无需 Python / 无需联网）
 
-GitHub Release 提供 `CE转换引擎-v1.0.1-win64-offline.zip`（约 160MB），已内置 Python 3.12 嵌入式运行时和全部依赖：
+GitHub Release 提供 `CE-Conversion-Engine-v1.0.1-win64-offline.zip`（约 161MB），已内置 Python 3.12 嵌入式运行时和全部依赖：
 
 1. 将 ZIP **完整解压**到任意目录（如 `D:\CE转换引擎`）。
 2. 绿色版：双击 `启动 CE转换引擎.cmd` 直接使用。
