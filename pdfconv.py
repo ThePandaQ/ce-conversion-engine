@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""pdfconv 1.0.0 — CE转换引擎（Conversion Engine）：本地离线 PDF/OFD 转换工具（开源引擎实现，不依赖 WPS）。
+"""pdfconv 1.0.1 — CE转换引擎（Conversion Engine）：本地离线 PDF/OFD/WPS 转换工具（开源引擎实现，不依赖 WPS）。
+作者：温酒会知音    版权所有 © 2026 温酒会知音
 
 用法示例：
   pdfconv info report.pdf
@@ -47,7 +48,9 @@ import time
 import warnings
 from pathlib import Path
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
+AUTHOR = "温酒会知音"
+COPYRIGHT = "Copyright © 2026 温酒会知音"
 
 # 强制 UTF-8 输出：避免在 GBK 控制台/管道下打印中文符号（如 OFD↔PDF）时报 UnicodeEncodeError。
 try:
@@ -1099,7 +1102,8 @@ def cmd_doctor(args):
         print(json.dumps({"tool": "pdfconv", "version": VERSION, "python": sys.version,
                           "executable": sys.executable, "deps": rows}, ensure_ascii=False, indent=1))
         return True
-    print(f"pdfconv {VERSION}")
+    print(f"pdfconv {VERSION} — CE转换引擎（Conversion Engine）")
+    print(f"作者: {AUTHOR}    {COPYRIGHT}")
     print(f"python: {sys.version.split()[0]}  ({sys.executable})")
     print("依赖:")
     for r in rows:
@@ -1123,7 +1127,7 @@ def build_parser():
         description="本地离线 PDF 转换工具（开源引擎实现，不依赖 WPS，不联网）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__.split("用法示例：", 1)[-1])
-    p.add_argument("--version", action="version", version=f"pdfconv {VERSION}")
+    p.add_argument("--version", action="version", version=f"pdfconv {VERSION} — CE转换引擎（Conversion Engine）— 作者：{AUTHOR}")
 
     sub = p.add_subparsers(dest="cmd", required=True)
 

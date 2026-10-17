@@ -72,6 +72,10 @@ try {
 $AppDir = $PSScriptRoot
 $RootDir = Split-Path -Parent $AppDir
 $Py = Join-Path $RootDir 'venv\Scripts\python.exe'
+if (-not (Test-Path $Py)) {
+    $portablePy = Join-Path $RootDir 'python\python.exe'
+    if (Test-Path $portablePy) { $Py = $portablePy }
+}
 $Cli = Join-Path $AppDir 'pdfconv.py'
 $HelpFile = Join-Path $AppDir 'README.md'
 $IconFile = Join-Path $AppDir 'ce.ico'
@@ -474,7 +478,7 @@ function Invoke-Conversion {
 
 # ---------------------------------------------------------------- form
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "CE转换引擎（Conversion Engine） v$($script:AppVersion)"
+$form.Text = "CE转换引擎（Conversion Engine） v$($script:AppVersion) — 作者：温酒会知音"
 $form.StartPosition = 'CenterScreen'
 $form.ClientSize = New-Object System.Drawing.Size(860, 680)
 $form.MinimumSize = New-Object System.Drawing.Size(820, 620)
@@ -668,7 +672,7 @@ $chkBackground.Add_CheckedChanged({
 Apply-Background
 
 $status = New-Object System.Windows.Forms.Label
-$status.Text = '就绪。所有转换均在本机离线完成。'
+$status.Text = '就绪。作者：温酒会知音 · 全部转换在本机离线完成。'
 $status.Location = New-Object System.Drawing.Point(12, 280)
 $status.Size = New-Object System.Drawing.Size(836, 32)
 $status.AutoSize = $false
@@ -794,6 +798,11 @@ $pnlLog.Add_DoubleClick({
 $menuLog = New-Object System.Windows.Forms.ContextMenuStrip
 $miCopyLog = $menuLog.Items.Add('复制全部日志')
 $miCopyLog.Add_Click({ try { [System.Windows.Forms.Clipboard]::SetText((Get-LogText)) } catch {} })
+$miAbout = $menuLog.Items.Add('关于 / 版权')
+$miAbout.Add_Click({
+    $msg = "CE转换引擎（Conversion Engine） v$($script:AppVersion)`r`n作者：温酒会知音`r`n版权所有 © 2026 温酒会知音`r`n许可：AGPL-3.0（详见 LICENSE）`r`n`r`n本软件在本机离线运行，不上传任何文件。`r`n.wps 格式转换需本机安装 WPS Office。`r`n`r`n第三方依赖与许可：见 NOTICE.md"
+    [System.Windows.Forms.MessageBox]::Show($msg, '关于 / 版权', 'OK', 'Information') | Out-Null
+})
 $miOpenLog = $menuLog.Items.Add('打开日志文件')
 $miOpenLog.Add_Click({ if ($script:runLogFile -and (Test-Path -LiteralPath $script:runLogFile)) { try { Start-Process notepad.exe -ArgumentList ('"' + $script:runLogFile + '"') } catch {} } })
 $pnlLog.ContextMenuStrip = $menuLog

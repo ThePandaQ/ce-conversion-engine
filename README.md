@@ -1,6 +1,7 @@
 # CE转换引擎（Conversion Engine）— 本地离线 PDF/OFD/WPS 转换工具
 
-**版本：v1.0.0** · [GitHub 仓库](https://github.com/ThePandaQ/ce-conversion-engine) · 许可证：AGPL-3.0
+**版本：v1.0.1** · **作者：温酒会知音** · 版权所有 © 2026 温酒会知音
+[GitHub 仓库](https://github.com/ThePandaQ/ce-conversion-engine) · 许可证：AGPL-3.0
 
 在 **Windows / Python 3.10+** 上运行的独立 PDF/OFD/WPS 转换 CLI，全部转换在本机完成、不联网、不依赖 WPS（`.wps` 格式除外，见下文）。
 使用开源引擎实现：PyMuPDF、pypdf、pdfplumber、pdf2docx、python-docx、python-pptx、openpyxl、Pillow、RapidOCR、easyofd（OFD）；
@@ -19,6 +20,18 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 如果不想用 git，也可以直接下载仓库 ZIP 解压后运行 `install.ps1`。
+
+## 离线分发包（给客户，无需 Python / 无需联网）
+
+GitHub Release 提供 `CE转换引擎-v1.0.1-win64-offline.zip`（约 160MB），已内置 Python 3.12 嵌入式运行时和全部依赖：
+
+1. 将 ZIP **完整解压**到任意目录（如 `D:\CE转换引擎`）。
+2. 绿色版：双击 `启动 CE转换引擎.cmd` 直接使用。
+3. 安装版：右键 `安装到本机.ps1` → 使用 PowerShell 运行，自动创建桌面快捷方式（安装到 `%LOCALAPPDATA%\CEConversionEngine`，无需管理员权限）。
+4. 客户电脑只需 Windows 10/11；`.wps` 转换需要本机安装 WPS Office。
+
+客户使用说明与版权声明见：
+[使用说明](docs/使用说明.md) · [版权与作者声明](docs/版权与作者声明.txt) · [离线包构建说明（维护者）](docs/离线分发说明.md)
 
 安装内容：
 - 独立 venv：`%LOCALAPPDATA%\PDFConv\venv`
@@ -195,8 +208,8 @@ ce-conversion-engine/
 ├─ LICENSE           # AGPL-3.0
 ├─ NOTICE.md         # 第三方依赖与许可
 ├─ README.md
-├─ desktop/          # Windows 图形界面启动器、图标、背景图、快捷方式脚本
-├─ docs/             # README 截图
+├─ desktop/          # Windows 图形界面启动器、图标、背景图、快捷方式/离线安装脚本
+├─ docs/             # README 截图、使用说明、版权与作者声明
 └─ tests/
    ├─ make_samples.py     # 生成多页中文/表格/图片测试 PDF
    ├─ run_offline_test.py # 离线回归测试（报告输出到本地 artifacts/）
@@ -219,8 +232,11 @@ python tests/run_wps_test.py
 ## 许可证
 
 本项目以 **GNU Affero General Public License v3.0（AGPL-3.0）** 发布，见 [LICENSE](LICENSE)。
+版权归作者 **温酒会知音** 所有（Copyright © 2026 温酒会知音）。
 第三方依赖与测试样本许可见 [NOTICE.md](NOTICE.md)。
 
+- 作者：温酒会知音；作者依法享有软件著作权、署名权及相关权益；如已登记软件著作权/专利以正式登记信息为准。
 - PyMuPDF 为 **AGPL-3.0**，与本项目许可证兼容；如需闭源/商用分发请自行评估或购买 PyMuPDF 商业授权。
 - WPS、金山办公等商标归珠海金山办公软件有限公司所有；本项目与其无关联。
 - `.wps` 转换依赖用户本机安装的 WPS Office，本项目不随附该软件。
+- 商业/闭源授权请联系作者。
